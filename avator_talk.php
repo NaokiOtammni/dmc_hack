@@ -23,7 +23,7 @@
         $URL_REGIST = "https://api.repl-ai.jp/v1/registration";
         $URL_DIALOGUE = "https://api.repl-ai.jp/v1/dialogue";
     
-        $BOT_ID = "maru";
+        $BOT_ID = "b4mgwa14brokkay";
         
         $api_key = "y7UMyeqwDpxXxmXH3BbHohujHHwsamT33ZZoQbbR";
         $user_id = null;
