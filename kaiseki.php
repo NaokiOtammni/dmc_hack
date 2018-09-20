@@ -34,11 +34,12 @@ function kaiseki($text){
     }
     return $noums_array;
 }
-
+/*
 if(empty($_POST){
     $post = json_decode($_POST,true);
     var_dump($post);
 }
+*/
 
 $ary = kaiseki('私は，今日地下鉄の3両目に乗ったが，めっちゃ空いてた．ラッキー！');
 echo($ary[0]);
