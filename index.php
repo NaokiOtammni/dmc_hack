@@ -27,7 +27,108 @@
             </div>
         </section>
 
+    <section class="talkView">
 
+
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        
+        <div class="kaiwa-text-right">
+            <p class="kaiwa-text">
+                おはよー
+            </p>
+        </div>
+        
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////2////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////////////
+                </p>
+            </div>
+        </div>
+        <div class="kaiwa"">
+            <div class="kaiwa-text-left">
+                <p class="kaiwa-text">
+                    /////////チャットの内容////2////////
+                </p>
+            </div>
+        </div>
+    </section>
 
 
         <section class="talk" id="footer">
