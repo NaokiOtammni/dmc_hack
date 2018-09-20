@@ -1,59 +1,56 @@
 <?php
 
+    
+    $maru_bot = [];
+
     function json_safe_encode($data){
         return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
     }
 
-    function send_post($url,$header,$post_body){
+    function send_post($url,$a_key,$post_body){
+
+        $header = array('Content-Type:application/json','x-api-key:'.$a_key);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,$header );
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, $url);
         $res = curl_exec($ch);
         curl_close($ch);
-        return $res;
+        return json_decode($res,true);
     }
-
-    $topic_id ='s4mgwbccnugmco1';
-
-    function send_user_comment($text,$flag,$t_id){
-        
-        $URL_REGIST = "https://api.repl-ai.jp/v1/registration";
-        $URL_DIALOGUE = "https://api.repl-ai.jp/v1/dialogue";
     
-        $BOT_ID = 'b4mgwa14brokkay';
+    function send_user_comment($text,$flag){
+        $URL_REGIST     = 'https://api.repl-ai.jp/v1/registration';
+        $URL_DIALOGUE   = 'https://api.repl-ai.jp/v1/dialogue';
+
+        $api_key    = 'y7UMyeqwDpxXxmXH3BbHohujHHwsamT33ZZoQbbR';
+        $BOT_ID     = 'b4mgwa14brokkay';
+        $topic_id   = 's4mgwbccnugmco1';
+
+        if($flag == true){
+            $post_body0 = array('botId'=>$BOT_ID);
+            $body_json0 = json_safe_encode($post_body0);
+            $res0 = send_post($URL_REGIST,$api_key,$body_json0);
+            $maru_bot['appUserId'] = $res0['appUserId'];
+        }
+
+        //echo($flag.'::'.$maru_bot['appUserId']."\n");
         
-        $api_key = 'y7UMyeqwDpxXxmXH3BbHohujHHwsamT33ZZoQbbR';
-        $user_id = null;
-
-        $headers = array('Content-Type:application/json','x-api-key'=>$api_key);
-        //$headers_json = json_safe_encode($headers);
-
-        $post_body0 = array('botId'=>$BOT_ID);
-        $res0 = send_post($URL_REGIST,$headers,$post_body0);
-        
-        var_dump($res0);
-
-        $user_id = $res0['appUserId'];
-        var_dump($user_id);
-
         $post_body1  = array( 
-            'appUserId'=>$user_id,  
+            'appUserId'=>$maru_bot['appUserId'],  
             'botId'=>$BOT_ID,
             'voiceText'=>$text, 
             'initTalkingFlag'=>$flag,  
-            'initTopicId'=>$t_id, 
+            'initTopicId'=>$topic_id, 
             'appRecvTime'=>date("Y/m/d H:i:s"), 
             'appSendTime'=>date("Y/m/d H:i:s")
         );
-        //var_dump($post_body);
-        send_post($URL_DIALOGUE,$headers,$post_body1);
-
+        $body_json1 = json_safe_encode($post_body1);
+        return send_post($URL_DIALOGUE,$api_key,$body_json1);
     }
 
-    //$r = 
-    send_user_comment('init',true,$topic_id);
-    //var_dump($r);
+    var_dump(send_user_comment('init',true));
+    //send_user_comment('明松です',false);
 ?>
