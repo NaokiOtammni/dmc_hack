@@ -35,17 +35,19 @@
 	/* 左からの吹き出しテキスト */
 	.kaiwa-text-right {
 	  position: relative;
-	  margin-left: 80px;
+	  /*margin-left: 40px;*/
 	  padding: 10px;
 	  border-radius: 10px;
+	  margin-right: 50%;
 	  background: #eee;
-	  margin-right: 12%;
-	  float: left;
+	  margin-top: 10px;
+    	margin-bottom: 10px;
+	  /*margin-right: 12%;*/
 	}
 	/* 右からの吹き出しテキスト */
 	.kaiwa-text-left {
 	  position: relative;
-	  margin-right: 40px;
+	  /*margin-right: 40px;*/
 	  padding: 10px;
 	  border-radius: 10px;
 	  background-color: #9cd6e7;

@@ -1,3 +1,11 @@
+<?php
+session_start();
+        include 'ChromePhp.php';
+        if(empty($_SESSION["USERID"])){
+                print 'dame';
+                exit;
+        }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +29,12 @@
  
  	try{
                     $db_key = new PDO($db_ac, $user_name, $pass);
-                    
+                   
                     if ($db_key == null) {
                         print('接続に失敗しました。<br>');
                     }
                      $db_key->query('SET NAMES utf8');
-                     
+                     $userid=$_SESSION["USERID"];
                     if((!empty($_POST['chaat']))){
                     	$quer= "SELECT id from comment_data";
                     	$flag = $db_key->query($quer);
@@ -40,7 +48,7 @@
                    	$Ids=(int)$Ids;
 			$quer = "insert into comment_data (id, name, comment, time, user_id) values (?,?,?,?,?)";
 			$stmt = $db_key->prepare($quer);
-                         $flag1 = $stmt->execute(array($lds, $_POST['chaat'], 'aa',  date('Y/m/d'), 1));
+                        $flag1 = $stmt->execute(array($lds, $userid, $_POST['chaat'], date('Y/m/d'), 1));
                     	if($flag1){
                     		//echo '投稿完了しました';
                     	}else{
@@ -49,7 +57,8 @@
                     	$quer= "SELECT name, comment, time from comment_data ";
                     	$flag = $db_key->query($quer);
                     	$jsonn=$flag->fetchAll(PDO::FETCH_ASSOC);
-                    	$flg_json = json_encode($jsonn,JSON_UNESCAPED_UNICODE); 
+                    	$flg_json = json_encode($jsonn,JSON_UNESCAPED_UNICODE);
+                    	 header("Location: {$_SERVER['REQUEST_URI']}");
                     } else {
                     	$quer= "SELECT name, comment, time from comment_data ";
                     	$flag = $db_key->query($quer);
@@ -85,16 +94,17 @@
         </div>
         <script type="text/javascript">
 var js_array = JSON.parse('<?php echo $flg_json; ?>');
-console.log(js_array);
+var my_name = '<?php echo $userid; ?>';
+
+console.log(my_name);
 for (var i=0; i<js_array.length; i++){
-         $("#kaiwa").append(' <div class="kaiwa-text-left"> <div class="kaiwa-text">ユーザ名:'+js_array[i].name+'<br>コメント:'+js_array[i].comment+'<br>日付:'+js_array[i].time+'</div></div><br>');
+        if(js_array[i].name == my_name){
+                $("#kaiwa").append(' <div class="kaiwa-text-left"> <div class="kaiwa-text">ユーザ名:'+js_array[i].name+'<br>コメント:'+js_array[i].comment+'<br>日付:'+js_array[i].time+'</div></div><br>');
+        }else{
+                $("#kaiwa").append(' <div class="kaiwa-text-right"> <div class="kaiwa-text">ユーザ名:'+js_array[i].name+'<br>コメント:'+js_array[i].comment+'<br>日付:'+js_array[i].time+'</div></div><br>');
+        }
 }
 </script>
-
-        <div class="kaiwa-text-right">
-            <p class="kaiwa-text">
-                おはよー
-            </p>
         </div>
         </div>
     </section>
