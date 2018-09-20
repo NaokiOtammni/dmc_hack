@@ -5,6 +5,9 @@
 	.kaiwa {
 	  margin-bottom: 25px;
 	}
+	#kaiwa {
+	  margin-bottom: 25px;
+	}
 	/* 左画像 */
 	.kaiwa-img-left {
 	  margin: 0;
@@ -42,12 +45,12 @@
 	/* 右からの吹き出しテキスト */
 	.kaiwa-text-left {
 	  position: relative;
-	  margin-right: 80px;
+	  margin-right: 40px;
 	  padding: 10px;
 	  border-radius: 10px;
 	  background-color: #9cd6e7;
-	  margin-left: 12%;
-	  float: right;
+	  margin-left: 50%;
+	  /*float: right;*/
 	  	margin-top: 10px;
     	margin-bottom: 10px;
 	}
