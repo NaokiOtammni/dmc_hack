@@ -15,7 +15,7 @@ function analysis(text){
     }
 
     var url_path = "gooLanguageAnalysis/v1/morph"
-    var api_key = ""
+    var api_key = "69325262324162726268303565662e48507863507776684b2f332e7435736b7a686a59524c576a306e7439"
 
     var post_body = {
         "request_id":"record001",
@@ -36,6 +36,7 @@ function analysis(text){
 
     request(options, function (error, response, body) {
        json = JSON.stringify(body,null," ");
+       console.log(json);
     });
 
     return json;
