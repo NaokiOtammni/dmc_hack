@@ -11,12 +11,14 @@
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_URL, 'https://api.repl-ai.jp/v1/dialogue');
-        curl_exec($ch);
+        $res = curl_exec($ch);
         curl_close($ch);
+        return $res;
     }
 
     
-    $maru_bot ={};
+    $maru_bot =[];
+    $topic_id ='s4mgwbccnugmco1';
 
     function send_user_comment($text,$flag,$t_id){
         
@@ -46,4 +48,7 @@
         send_post_bot($URL_DIALOGUE,$post_body);
 
     }
+
+    $r = send_user_comment('こんにちは!!',false,$topic_id);
+    var_dump($r);
 ?>
