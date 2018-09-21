@@ -79,10 +79,9 @@ var maru_bot = {};
 
 if (require.main === module) {
     maru_bot.regist(function(user_id) {
-	console.log("user_id is",user_id)
+		console.log("user_id is",user_id)
 
-	maru_bot.talk("こんにちは",false,"hello",function(res) {
-	    console.log("response is",res);
-	})
+		maru_bot.talk("こんにちは",false,"hello",function(res) {
+	    console.log("response is",res);})
     })
 }

@@ -1,9 +1,11 @@
 <?php
 
 //JSON形式に変換する関数を定義
+/*
 function json_safe_encode($data){
     return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 }
+*/
 
 function kaiseki($text){
     $url_path       = 'gooLanguageAnalysis/v1/morph';
@@ -41,6 +43,6 @@ if(empty($_POST){
 }
 */
 
-$ary = kaiseki('私は，今日地下鉄の3両目に乗ったが，めっちゃ空いてた．ラッキー！');
-echo($ary[0]);
+//$ary = kaiseki('私は，今日地下鉄の3両目に乗ったが，めっちゃ空いてた．ラッキー！');
+//echo($ary[0]);
 ?>

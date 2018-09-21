@@ -1,10 +1,28 @@
 <?php
 
+    require_once('./kaiseki.php');
     
-    $maru_bot = [];
-
+    $USER_ID='';
+    $LAST_RCV_TIME ='';
     function json_safe_encode($data){
         return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+        //return json_encode($data,)
+    }
+
+    function display($text,$flg){
+        if($flg)return;
+        $ary = kaiseki($text);
+        if(Count($ary)==0){
+            echo 'キーワード：NONE';
+        }else{
+            for($i=0;$i<Count($ary);$i++){
+                if($i==0)echo 'キーワード：'.$ary[$i];
+                else{
+                    echo ','.$ary[$i];
+                }
+            }
+        }
+        echo "<br>";
     }
 
     function send_post($url,$a_key,$post_body){
@@ -14,14 +32,14 @@
         curl_setopt($ch, CURLOPT_HTTPHEADER,$header );
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_URL, $url);
         $res = curl_exec($ch);
         curl_close($ch);
-        return json_decode($res,true);
+        return json_decode($res,TRUE);
     }
     
-    function send_user_comment($text,$flag){
+    function send_user_comment($text,$flag,$usr_id,$lt){
         $URL_REGIST     = 'https://api.repl-ai.jp/v1/registration';
         $URL_DIALOGUE   = 'https://api.repl-ai.jp/v1/dialogue';
 
@@ -29,28 +47,43 @@
         $BOT_ID     = 'b4mgwa14brokkay';
         $topic_id   = 's4mgwbccnugmco1';
 
-        if($flag == true){
+        if($flag === TRUE  || empty($usr_id)){
             $post_body0 = array('botId'=>$BOT_ID);
             $body_json0 = json_safe_encode($post_body0);
             $res0 = send_post($URL_REGIST,$api_key,$body_json0);
-            $maru_bot['appUserId'] = $res0['appUserId'];
+            $usr_id = $res0['appUserId'];
+        }else{
+            //echo "Foo!!<br>";
         }
-
-        //echo($flag.'::'.$maru_bot['appUserId']."\n");
         
+        //var_dump($usr_id);
         $post_body1  = array( 
-            'appUserId'=>$maru_bot['appUserId'],  
+            'appUserId'=>$usr_id,  
             'botId'=>$BOT_ID,
             'voiceText'=>$text, 
             'initTalkingFlag'=>$flag,  
             'initTopicId'=>$topic_id, 
-            'appRecvTime'=>date("Y/m/d H:i:s"), 
-            'appSendTime'=>date("Y/m/d H:i:s")
+            'appRecvTime'=>$_SESSION['lt'],//($flag===TRUE)?date("Y/m/d H:i:s"):$lt, 
+            'appSendTime'=>date("Y-m-d H:i:s")
         );
+        //var_dump($post_body1['appRecvTime']);
         $body_json1 = json_safe_encode($post_body1);
-        return send_post($URL_DIALOGUE,$api_key,$body_json1);
+        echo $text."<br>";
+        //display($text);
+        $r = send_post($URL_DIALOGUE,$api_key,$body_json1)+array('appUserId'=>$usr_id,'last_rcv_time'=>$post_body1['appRecvTime']);
+        echo $r['systemText']['expression']."<br>";
+        return $r;
     }
 
-    var_dump(send_user_comment('init',true));
-    //send_user_comment('明松です',false);
+    session_start();
+    
+    $_SESSION['lt'] = date("Y-m-d H:i:s");
+    display('init',TRUE);
+    $response = send_user_comment('init',TRUE,'','');
+    //echo $response['appUserId']."<br>";
+    //echo $response['last_rcv_time']."<br>";
+    $response = send_user_comment('明松です',FALSE,$response['appUserId'],$response['last_rcv_time']);
+    display('明松です',FALSE);
+    $response = send_user_comment('もうだめだ',FALSE,$response['appUserId'],$response['last_rcv_time']);
+    display('もうだめだ',FALSE);    
 ?>
